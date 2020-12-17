@@ -1,0 +1,22 @@
+
+printtos.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <printtos>:
+   0:	83 ec 1c             	sub    $0x1c,%esp
+   3:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+   a:	e8 fc ff ff ff       	call   b <printtos+0xb>
+   f:	89 25 04 00 00 00    	mov    %esp,0x4
+  15:	89 2d 00 00 00 00    	mov    %ebp,0x0
+  1b:	a1 04 00 00 00       	mov    0x4,%eax
+  20:	89 44 24 04          	mov    %eax,0x4(%esp)
+  24:	c7 04 24 13 00 00 00 	movl   $0x13,(%esp)
+  2b:	e8 fc ff ff ff       	call   2c <printtos+0x2c>
+  30:	a1 00 00 00 00       	mov    0x0,%eax
+  35:	89 44 24 04          	mov    %eax,0x4(%esp)
+  39:	c7 04 24 13 00 00 00 	movl   $0x13,(%esp)
+  40:	e8 fc ff ff ff       	call   41 <printtos+0x41>
+  45:	83 c4 1c             	add    $0x1c,%esp
+  48:	c3                   	ret    

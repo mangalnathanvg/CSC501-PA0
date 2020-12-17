@@ -1,0 +1,88 @@
+PA0 - Additional Questions Answers
+Mangalnathan Vijaygopal - mvijaya2
+CSC 501 - Operating Systems Principles
+FALL 2020
+
+
+1) Assuming the XINU text begins at address 0x0, draw a rough diagram of XINU's memory layout with addresses derived from your experimental measurements. Include the information you uncovered from running your version of printsegaddress() and printprocstks().
+
+Response:
+
+A Rough layout of the XINU Memory layout based on my investigations are given below:
+
+Please note that the stack grows in the direction from 0xffffffff towards 0x00000000
+
+
+----------------------------------------------- 0xffffffff (End of XINU Memory Layout)
+
+
+
+----------------------------------------------- 0x00ffeff8 - Stack Base as shown by printprocstks
+
+
+
+----------------------------------------------- 0x00ffefec - EBP set when main is called, Value in this address is 0x00ffeff8
+
+
+
+----------------------------------------------- 0x00ffefb0 - Top of the Stack Right before printtos is called
+
+
+
+----------------------------------------------- 0x00ffefac - Return address to give control to main stored in this location right when printtos is invoked in main
+
+
+
+----------------------------------------------- 0x00ffefa8 - Updated EBP after printtos is called by main, Value in this address is 0x00ffefec
+
+
+
+----------------------------------------------- 0x00ffdff8 - Upper limit of stack (Base: 0x00ffeff8 (printprocstks), Stack Size: 4096(printprocstks), Therefore 0x00ffeff8 + 4096)
+
+
+
+----------------------------------------------- 0x0002c5f8 (ebss)
+                   
+                   ebss
+
+----------------------------------------------- 0x0002153d (edata)
+
+				   data
+
+----------------------------------------------- 0x0001ca8d (etext)
+
+				   text
+
+----------------------------------------------- 0x00000000 (Start of XINU Memory Layout)
+
+
+
+2) What is the difference in stack top address before and after calling printtos()? Draw a diagram to illustrate what are the contents of the items pushed into the stack between these two time points.
+
+Response: 
+
+----------------------------------------------- 0x00ffefb0 (Top of the stack address right before printtos is called in main)
+
+
+----------------------------------------------- 0x00ffefac (Return address to main populated in this address right when printtos is called in main)
+
+
+----------------------------------------------- 0x00ffefa8 (Updated EBP address right after printtos is called)
+
+Clearly we must compute the difference between 0x00ffefb0 and 0x00ffefa8 which is 8 bytes
+
+
+
+3) In a stack frame, local variables are stored below the top of the stack. In task 3, does your result show all the local variables declared in your printtos function? If not, can you explain that? (hint: try to disable the compiler optimization by specifing -O0 in your Makefile)
+
+Response:
+Initially the stack did not show all the local variables declared in the printtos function because compiler optimization was enabled ( The -O flag in Makefile).
+
+Compiler optimization stores local variables in the processor's register. The optimization code will deem it unnecessary to store local variables in memory when the processor's registers are available.
+
+By disabling compiler optimization (-O0 flag), the local variables were visible on the stack because the compiler was forced to store local variables on the stack.
+
+				 
+
+
+
